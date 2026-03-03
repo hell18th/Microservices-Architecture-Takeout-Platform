@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: emp-server
+  profiles:
+    active: dev
+    # 激活的环境（开发环境）
+  main:
+    allow-circular-references: true
+    # 允许Bean之间的循环依赖
+  datasource:
+    driver-class-name: ${sky.datasource.driver-class-name}
+    # 数据库驱动
+    url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai
+    # MySQL连接地址
+    username: ${sky.datasource.username}
+    # 数据库用户名
+    password: ${sky.datasource.password}
+    # 数据库密码
+  cloud:
+    nacos:
+      server-addr: ${sky.nacos.server-addr}
+
+server:
+  port: 8086
+  # 项目启动后占用的端口号
+
+mybatis:
+  # Mapper XML文件位置
+  mapper-locations: classpath:mapper/*.xml
+  # 实体类别名包路径
+  #  type-aliases-package: com.sky.entity
+  # 开启下划线转驼峰
+  configuration:
+    map-underscore-to-camel-case: true
+    # 可选：开启日志打印SQL
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#logging:
+#  level:
+#    com.sky: debug
+#  pattern:
+#    dateformat: HH:mm:ss.SSS
+#  file:
+#    path: "logs/${spring.application.name}"

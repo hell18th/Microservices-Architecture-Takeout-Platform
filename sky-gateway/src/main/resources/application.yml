@@ -1,0 +1,63 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: 192.168.100.128:8848
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: common-server
+              uri: lb://common-server
+              predicates:
+                - Path=/admin/common/**
+            - id: emp-server
+              uri: lb://emp-server
+              predicates:
+                - Path=/admin/employee/**
+            - id: user-server
+              uri: lb://user-server
+              predicates:
+                - Path=/user/user/**
+            - id: shop-server
+              uri: lb://shop-server
+              predicates:
+                - Path=/admin/shop/**,/user/shop/**
+            - id: category-server
+              uri: lb://category-server
+              predicates:
+                - Path=/admin/category/**,/user/category/**
+            - id: dish-server
+              uri: lb://dish-server
+              predicates:
+                - Path=/admin/dish/**,/user/dish/**
+            - id: set-meal-server
+              uri: lb://set-meal-server
+              predicates:
+                - Path=/admin/SetMeal/**,/user/setMeal/**
+            - id: shopping-car-server
+              uri: lb://shopping-car-server
+              predicates:
+                - Path=/user/shoppingCar/**
+            - id: address-server
+              uri: lb://address-server
+              predicates:
+                - Path=/user/address/**
+            - id: order-server
+              uri: lb://order-server
+              predicates:
+                - Path=/admin/order/**,/user/order/**,/ws/**
+            - id: report-server
+              uri: lb://report-server
+              predicates:
+                - Path=/admin/report/**,/admin/workspace/**
+auth:
+  adminPath: /admin/**
+  userPath: /user/**
+  adminExcludePaths:
+    - /admin/employee/login
+  userExcludePaths:
+    - /user/user/login
